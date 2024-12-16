@@ -62,7 +62,6 @@ int room_to_index(char *room) {
     return index;
 }
 
-
 int int_input_check(int *input) {   //check whether the input is valid when needs a integer
     if (scanf("%d", input) != 1) {
         printf("[ERROR] Invalid input,please try again!\n");
