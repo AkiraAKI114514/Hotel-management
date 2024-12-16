@@ -1,5 +1,6 @@
 #include <string.h>
 #include <stdio.h>
+#include "msg.h"
 
 #define ADMIN_ID "admin"
 #define ADMIN_PWD "123456789"
