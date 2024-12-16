@@ -32,9 +32,6 @@ Customer cus_Info[MAX_ROOMS];
 
 int rooms[MAX_ROOMS];
 
-#include <stdio.h>
-#include <stdlib.h>
-
 char* index_to_room(int index) {
     int rooms_per_floor = MAX_ROOMS / FLOORS;
     int floor_number = index / rooms_per_floor;
