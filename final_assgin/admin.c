@@ -1,8 +1,4 @@
-#include <stdio.h>
-#include <string.h>
-
-#define MAX_ROOM_S 256
-#define MAX_ROOM_E 64
+#include "tools.h"
 
 void seekr(FILE *fname,char tg)//find pointer after categories.
 {
