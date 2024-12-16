@@ -1,4 +1,4 @@
-#include <main.c>
+#include <stdio.h>
 
 int main() {
     int choice;
