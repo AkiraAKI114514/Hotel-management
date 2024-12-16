@@ -1,5 +1,4 @@
 #include <main.c>
-#include <tools.h>
 
 int main() {
     int choice;
