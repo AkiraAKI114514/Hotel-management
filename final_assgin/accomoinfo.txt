@@ -1,0 +1,6 @@
+(intro)This is the Rrobert's Hotel, your best choice of accommodation.
+(room_standard)1/255
+(room_extra)0/63
+(num_booking)0
+(num_livein)1
+*(Admin)Rrobert
