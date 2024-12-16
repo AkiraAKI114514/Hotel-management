@@ -84,7 +84,7 @@ int admin(){
 
 int start_login(){
     char *line = "=====================================\n";
-    printf("%sThis is the hotel management system.\n",line);
+    printf("%sThis is the hotel management system.\n%s\n",line,line);
     getchar();
     admin();
 
