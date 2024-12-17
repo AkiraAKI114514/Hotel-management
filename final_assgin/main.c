@@ -2,7 +2,7 @@
 
 int main() {
     int choice;
-
+    init();
     welcomeMsg();
 
     while (1) {
