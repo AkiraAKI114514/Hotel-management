@@ -57,6 +57,7 @@ void admin(){
                         strcpy(temp_ID, cus_Info[i].ID);
                         strcpy(temp_stat, cus_Info[i].room_status);
                         strcpy(temp_roomnum, cus_Info[i].room_number);
+                        printf("--[Customers' Infomtion]--\n");
                         printf("=========================\n");
                         printf("| ID:\t%s\n",temp_ID);
                         printf("| Name:\t%s\n", temp_name);
