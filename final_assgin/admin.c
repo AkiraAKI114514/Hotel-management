@@ -41,9 +41,9 @@ void admin(){
 
                         default:
                             printf("[ERROR] Invaild input, please try again.\n");
-                            break;
                         }
                     }
+                    break;
                 }
 
                 continue;
