@@ -1,94 +1,87 @@
 #include "tools.h"
 
-void seekr(FILE *fname,char tg)//find pointer after categories.
-{
-    int cu;
-    int pos = -1;
-    while ((cu = fgetc(fname)) != EOF)
-    {
-        if (cu == tg)
-        {
-            pos = ftell(fname) - 1;
-            break;
+
+void admin(){
+    char ID[MAX_ID_LEN];
+    char password[MAX_PWD_LEN];
+    int choice;
+    while(login("Admin", ID) == 1){
+        adminHelpMsg();
+        if(int_input_check(&choice) != 1){
+            printf("[ERROR] Invaild input, please try again.");
+            continue;
+        }else{
+            switch (choice)
+            {
+            case 1://record info
+                while(1){
+                    char *temp_num;
+                    int temp_choice, temp_index;
+                    printf("[INPUT] Enter the room number\n");
+                    scanf("%s", &temp_num);
+                    temp_index = room_to_index(temp_num);
+                    RoomstatMsg();
+                    if(int_input_check(&temp_choice) != 1){
+                        printf("[ERROR] Invaild input, please try again.\n");
+                        continue;
+                    }else{
+                        switch (temp_choice)
+                        {
+                        case 1:
+                            strcpy(cus_Info[temp_index].room_status, DEFAULT_STAT);
+                            break;
+
+                        case 2:
+                            strcpy(cus_Info[temp_index].room_status, BOOKED_STAT);
+                            break;
+
+                        case 3:
+                            strcpy(cus_Info[temp_index].room_status, LIVEIN_STAT);
+                            break;
+
+                        default:
+                            printf("[ERROR] Invaild input, please try again.\n");
+                            break;
+                        }
+                    }
+                }
+
+                continue;
+                break;
+            case 2://View customers' info
+                for (int i = 0; i < MAX_ROOMS;i++){
+                    if(strcmp(cus_Info[i].room_status,DEFAULT_STAT) != 0){
+                        char temp_name[MAX_NAME_LEN], temp_ID[MAX_ID_LEN], temp_stat[10], temp_roomnum[4];
+                        int temp_number = cus_Info[i].number, temp_bill = cus_Info[i].bill;
+                        strcpy(temp_name, cus_Info[i].name);
+                        strcpy(temp_ID, cus_Info[i].ID);
+                        strcpy(temp_stat, cus_Info[i].room_status);
+                        strcpy(temp_roomnum, cus_Info[i].room_number);
+                        printf("=========================\n");
+                        printf("| ID:\t%s\n",temp_ID);
+                        printf("| Name:\t%s\n", temp_name);
+                        printf("| Phone Number:\t%d\n", temp_number);
+                        printf("| Room:\t%s (%s)\n", temp_roomnum,temp_stat);
+                        printf("| Bill:\t%d\n", temp_bill);
+                        printf("=========================\n\n");
+                    }
+                }
+                continue;
+                break;
+            case 3:
+                printf("[INFO] Returning to main menu.\n");
+                return;
+                break;
+            default:
+                printf("[ERROR] Invaild input, please try again.");
+            }
         }
+        break;
     }
-}
-
-void enterrds(char varie[]){
-    int len = strlen(varie);
-    if(varie[len-1]=='\n'){
-        varie[len - 1] = '\0';
-    }
-}
-
-int v_accinfo(){
-    char intro[200];
-    char rs[10];
-    char re[10];
-    char nb[5];
-    char nl[5];
-    char members[30];
-    FILE *info;
-    info = fopen("accomoinfo.txt", "r");
-    if(info != NULL){
-        seekr(info,')');
-        fgets(intro, 200, info);
-        seekr(info,')');
-        fgets(rs, 10, info);
-        seekr(info,')');
-        fgets(re, 10, info);
-        seekr(info,')');
-        fgets(nb, 5, info);
-        seekr(info, ')');
-        fgets(nl, 5, info);
-        seekr(info, ')');
-        enterrds(intro);
-        enterrds(rs);
-        enterrds(re);
-        enterrds(nb);
-        enterrds(nl);
-        char *line = "*********************************************************************";
-        printf("\n\n%s\n---%s---\n%s\n\n", line,intro,line);
-        printf("%s\n|Standard room:\t\t\t%s\n",line,rs);
-        printf("|Extended room:\t\t\t%s\n", re);
-        printf("|Booking number:\t\t%s\n", nb);
-        printf("|Live in number:\t\t%s\n%s\n", nl,line);
-        printf("Stuff:\n");
-        while(fgetc(info) != EOF){
-            char mem[30];
-            fgets(mem, 30, info);
-            printf("%s", mem);
-        }
-    }
-    fclose(info);
-    return 0;
-}
-
-int w_accinfo(){
-    FILE *info = fopen("accomoinfo.txt", "w");
-
-}
-
-int v_custinfo(){
-    return 0;
-}
-int admin(){
-    printf("This is the Administrator's mode.\n");
-    getchar();
-    v_accinfo();
-}
-
-int start_login(){
-    char *line = "=====================================\n";
-    printf("%sThis is the hotel management system.\n%s\n",line,line);
-    getchar();
-    admin();
-
-    return 0;
+    return;
 }
 
 
-int main(){
-    start_login();
-    return 0;
+void employee(){
+    return;
 }
