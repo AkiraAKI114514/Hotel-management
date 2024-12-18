@@ -50,6 +50,7 @@ void admin(){
                 break;
             case 2://View customers' info
                 for (int i = 0; i < MAX_ROOMS;i++){
+                    printf("--[Customers' Infomtion]--\n");
                     if(strcmp(cus_Info[i].room_status,DEFAULT_STAT) != 0){
                         char temp_name[MAX_NAME_LEN], temp_ID[MAX_ID_LEN], temp_stat[10], temp_roomnum[4];
                         int temp_number = cus_Info[i].number, temp_bill = cus_Info[i].bill;
@@ -57,7 +58,7 @@ void admin(){
                         strcpy(temp_ID, cus_Info[i].ID);
                         strcpy(temp_stat, cus_Info[i].room_status);
                         strcpy(temp_roomnum, cus_Info[i].room_number);
-                        printf("--[Customers' Infomtion]--\n");
+                        
                         printf("=========================\n");
                         printf("| ID:\t%s\n",temp_ID);
                         printf("| Name:\t%s\n", temp_name);
