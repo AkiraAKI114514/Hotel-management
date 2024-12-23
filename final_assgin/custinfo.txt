@@ -1,7 +1,0 @@
-*(id)110924231
-(name)Aki
-(gender)male
-(room)231
-(roomtype)standard
-(using condition)inuse
-(check in/out time)110924/#
