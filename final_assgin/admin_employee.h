@@ -4,17 +4,17 @@ void admin(){
     char ID[MAX_ID_LEN];
     char password[MAX_PWD_LEN];
     char temp_num[4];
-    int choice;
     int flag = 1;
-    int temp_choice;
+    int choice_1;
+    int choice_2;
     int temp_index;
 
     if (login("Admin", ID)) {
         while (1) {
             adminHelpMsg();
 
-            if (int_input_check(&choice)) {
-                switch (choice) {
+            if (int_input_check(&choice_1)) {
+                switch (choice_1) {
                     case 1://record info
                         flag = 1;
                         while (flag) {
@@ -29,8 +29,8 @@ void admin(){
                             temp_index = room_to_index(temp_num);
                             RoomstatMsg();
 
-                            if (int_input_check(&temp_choice)) {
-                                switch (temp_choice) {
+                            if (int_input_check(&choice_2)) {
+                                switch (choice_2) {
                                     case 1:
                                         strcpy(room_Info[temp_index].room_status, DEFAULT_STAT);
                                         printf("[INFO] The status of room %s has been changed to \"%s\".\n", temp_num, DEFAULT_STAT);
