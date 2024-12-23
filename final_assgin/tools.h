@@ -134,6 +134,33 @@ int init()
     for (int i = 0; i < MAX_ROOMS; i++)
     {
         strcpy(cus_Info[i].room_status, DEFAULT_STAT);
+        strcpy(cus_Info[i].room_number, index_to_room(i));
+    }
+    for (int j = 0; j < MAX_EPLY_NUMBER; j++){
+        strcpy(eply_Info[j].department, "NONE");
+    }
+}
+
+void view_cus_info(){
+    printf("--[Customers' Infomtion]--\n");
+    for (int i = 0; i < MAX_ROOMS; i++)
+    {
+        if (strcmp(cus_Info[i].room_status, DEFAULT_STAT) != 0)
+        {
+            char temp_name[MAX_NAME_LEN], temp_ID[MAX_ID_LEN], temp_stat[10], temp_roomnum[4];
+            int temp_number = cus_Info[i].number, temp_bill = cus_Info[i].bill;
+            strcpy(temp_name, cus_Info[i].name);
+            strcpy(temp_ID, cus_Info[i].ID);
+            strcpy(temp_stat, cus_Info[i].room_status);
+            strcpy(temp_roomnum, cus_Info[i].room_number);
+            printf("=========================\n");
+            printf("| ID:\t%s\n", temp_ID);
+            printf("| Name:\t%s\n", temp_name);
+            printf("| Phone Number:\t%d\n", temp_number);
+            printf("| Room:\t%s (%s)\n", temp_roomnum, temp_stat);
+            printf("| Bill:\t%d\n", temp_bill);
+            printf("=========================\n\n");
+        }
     }
 }
 
