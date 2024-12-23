@@ -23,7 +23,7 @@ int main() {
                     printf("[INFO] Exiting sytstem. Goodbye!\n");
                     return 0;
                 default:  
-                    printf("[ERROR] Invalid option,lease try again!\n");
+                    printf("[ERROR] Invalid option,please try again!\n");
             }
         }
     }
