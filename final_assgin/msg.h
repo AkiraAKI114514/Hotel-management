@@ -32,3 +32,26 @@ void RoomstatMsg(){
     printf("3. Livein\n");
     printf("[INPUT] Please select an option (1-3) >>");
 }
+
+void EmployHelpMsg1(){
+    printf("[Employee Menu]\n");
+    printf("1. Register\n");
+    printf("2. Login\n");
+    printf("[INPUT] Please select an option (1-2) >>");
+}
+
+void EmployHelpMsg2(){
+    printf("[Employee Menu]\n");
+    printf("1. View Customers\n");
+    printf("2. View Accomodations\n");
+    printf("[INPUT] Please select an option (1-2) >>");
+}
+
+void DepartmentMsg(){
+    printf("[Choose your department]\n");
+    printf("1. Management\n");
+    printf("2. Accounting\n");
+    printf("3. Service\n");
+    printf("[INPUT] Please select an option (1-3) >>");
+
+}
