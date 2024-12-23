@@ -8,7 +8,7 @@ void admin(){
     while(login("Admin", ID) == 1){
         adminHelpMsg();
         if(int_input_check(&choice) != 1){
-            printf("[ERROR] Invaild input, please try again.");
+            printf("[ERROR] Invaild input, please try again.\n");
             continue;
         }else{
             switch (choice)
@@ -49,24 +49,7 @@ void admin(){
                 continue;
                 break;
             case 2://View customers' info
-                printf("--[Customers' Infomtion]--\n");
-                for (int i = 0; i < MAX_ROOMS;i++){
-                    if(strcmp(cus_Info[i].room_status,DEFAULT_STAT) != 0){
-                        char temp_name[MAX_NAME_LEN], temp_ID[MAX_ID_LEN], temp_stat[10], temp_roomnum[4];
-                        int temp_number = cus_Info[i].number, temp_bill = cus_Info[i].bill;
-                        strcpy(temp_name, cus_Info[i].name);
-                        strcpy(temp_ID, cus_Info[i].ID);
-                        strcpy(temp_stat, cus_Info[i].room_status);
-                        strcpy(temp_roomnum, cus_Info[i].room_number);
-                        printf("=========================\n");
-                        printf("| ID:\t%s\n",temp_ID);
-                        printf("| Name:\t%s\n", temp_name);
-                        printf("| Phone Number:\t%d\n", temp_number);
-                        printf("| Room:\t%s (%s)\n", temp_roomnum,temp_stat);
-                        printf("| Bill:\t%d\n", temp_bill);
-                        printf("=========================\n\n");
-                    }
-                }
+                view_cus_info();
                 continue;
                 break;
             case 3:
@@ -84,5 +67,114 @@ void admin(){
 
 
 void employee(){
-    return;
-}
+    while(1){
+        int choice1, choice2,eply_num;
+        char temp_name[MAX_NAME_LEN], temp_dep[100], temp_pwd[MAX_PWD_LEN], temp_id[MAX_ID_LEN];
+        EmployHelpMsg1();
+        if(int_input_check(&choice1) != 1){
+            printf("[ERROR] Invaild input, please try again.\n");
+            continue;
+        }else{
+            switch (choice1)
+            {
+            case 1://Register by Department
+                for (int j = 0; j < MAX_EPLY_NUMBER;j++){
+                    if(strcmp(eply_Info[j].department,"NONE")==0){
+                        eply_num = j;
+                        break;
+                    }
+                }
+                printf("[INPUT] Please enter your name >>");
+                scanf("%s", &temp_name);
+                printf("[INPUT] Please enter your password >>");
+                scanf("%S", &temp_pwd);
+                DepartmentMsg();
+                while(1){
+                    if(int_input_check(&choice2)!=1){
+                        printf("[ERROR] Invaild input, please try again.\n");
+                        continue;
+                    }else{
+                        switch (1)
+                        {
+                        case 1:
+                            strcpy(eply_Info[eply_num].department, "Manangement");
+                            strcpy(temp_dep, "M");
+                            break;
+                        case 2:
+                            strcpy(eply_Info[eply_num].department, "Accounting");
+                            strcpy(temp_dep, "A");
+                            break;
+                        case 3:
+                            strcpy(eply_Info[eply_num].department, "Service");
+                            strcpy(temp_dep, "S");
+                            break;
+                        default:
+                            break;
+                        }
+                    }
+                    break;
+                }
+
+                strcpy(eply_Info[eply_num].name, temp_name);
+                strcpy(eply_Info[eply_num].password, temp_pwd);
+                sprintf(temp_id, "%d", eply_num);
+                strcat(temp_id, temp_name);
+                strcat(temp_id, temp_dep);
+                strcpy(eply_Info[eply_num].ID, temp_id);
+                printf("[INFO] Register Successed.\n");
+                printf("Please check your infomation.\n");
+                printf("=================================\n");
+                printf("ID:\t%s\n", eply_Info[eply_num].ID);
+                printf("Name:\t%s\n", eply_Info[eply_num].name);
+                printf("Department:\t%s\n", eply_Info[eply_num].department);
+                printf("=================================\n");
+                break;
+
+            case 2://login and view info
+                while(1){
+                    if(login("Employee",temp_id)!=1){
+                        continue;
+                    }else{
+                        EmployHelpMsg2();
+                        if(int_input_check(&choice2) == 0){
+                            printf("[ERROR] Invaild input, please try again.\n");
+                            continue;
+                        }else{
+                            switch (choice2)
+                            {
+                            case 1://View Customers
+                                printf("--[Customers' Infomtion]--\n");
+                                for (int i = 0; i < MAX_ROOMS; i++)
+                                {
+                                    view_cus_info();
+                                }
+                                break;
+                            case 2://view accomodations list
+                                printf("--[Accomodation list]--\n");
+                                for (int i = 0; i < MAX_ROOMS;i++){
+                                    char room_num[4];
+                                    char temp_stat[10];
+                                    strcpy(temp_stat, cus_Info[i].room_status);
+                                    strcpy(room_num, cus_Info[i].room_number);
+                                    printf("=================\n");
+                                    printf("|%s:\t%s\n", room_num, temp_stat);
+                                    printf("=================\n");
+                                }
+                                break;
+
+                            default:
+                                break;
+                            }
+                        }
+                    }
+                    break;
+                }
+
+
+            default:
+                break;
+            }
+            break;
+        }
+    }
+} 
