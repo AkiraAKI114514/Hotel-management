@@ -17,13 +17,13 @@ int main() {
                     employee();
                     break;
                 case 3:
-                    customer();
+                    //customer();
                     break;
                 case 4:    
                     printf("[INFO] Exiting sytstem. Goodbye!\n");
                     return 0;
                 default:  
-                    printf("[ERROR] Invalid input. Please try again!\n");
+                    printf("[ERROR] Invalid option,lease try again!\n");
             }
         }
     }
