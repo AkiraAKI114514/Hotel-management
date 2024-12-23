@@ -14,6 +14,7 @@
 #define DEFAULT_STAT "Empty"
 #define LIVEIN_STAT "Livein"
 #define BOOKED_STAT "Booked"
+#define VALID_PREFIX {'G', '1', '2', '3'}
 
 typedef struct {
     char department[100];
@@ -46,7 +47,7 @@ int rooms[MAX_ROOMS] = {0};
 char *index_to_room(int index) {
     int rooms_per_floor = MAX_ROOMS / FLOORS;
     int floor_number = index / rooms_per_floor;
-    char prefix[4] = {'G', '1', '2', '3'};
+    char prefix[4] = VALID_PREFIX;
     char floor = prefix[floor_number];
     int room_number = index % rooms_per_floor + 1;
     static char room[4];
@@ -60,7 +61,7 @@ int room_to_index(char *room) {
     int index;
     int floor;
     int room_number = atoi(&room[1]);
-    char prefix[4] = {'G', '1', '2', '3'};
+    char prefix[4] = VALID_PREFIX;
 
     for (int i = 0; i < FLOORS; i++) {
         if (prefix[i] == room[0]) {
@@ -74,60 +75,61 @@ int room_to_index(char *room) {
 }
 
 int find_empty_rooms() {
-    int tempend = 0;
-    int tempst = 0;
-    int rooms = MAX_ROOMS;
-    int floor = 0;
-    printf("Empty rooms:\n");
-    for (int i = 0; i < MAX_ROOMS; i++) {
-        // printf("%d", i);
-        if (strcmp(room_Info[i].room_status, DEFAULT_STAT) == 0) {
-            if ((i + 1) % 50 == 0) {
-                if (tempst != tempend) {
-                    char *st = index_to_room(tempst);
-                    printf("%s", st);
-                    char *end = index_to_room(tempend);
-                    printf("-%s\n", end);
-                } else {
-                    char *end = index_to_room(tempend);
-                    printf("%s\n", end);
-                }
-                tempst = i + 1;
-            }
-        } else {
-            if (tempend - 1 == tempst) {
-                printf("%s ", index_to_room(tempst));
-                tempst = i + 1;
-            } else {
-                char *st1 = index_to_room(tempst);
-                printf("%s-", st1);
-                char *end1 = index_to_room(tempend - 1);
-                printf("%s ", end1);
+    int empty_count = 0;
+    int rooms_per_floor = MAX_ROOMS / FLOORS;
+    char prefix[4] = {'G', '1', '2', '3'};
 
-                tempst = i + 1;
-            }
-            
-            if ((i + 1) % 50 == 0) {
-                printf("\n");
+    printf("======== Empty Rooms ========\n");
+    for (int floor = 0; floor < FLOORS; floor++) {
+        int start = -1, end = -1;
+        printf("Floor %c: ", prefix[floor]);
+        for (int i = 0; i < rooms_per_floor; i++) {
+            int index = floor * rooms_per_floor + i;
+            if (strcmp(room_Info[index].room_status, DEFAULT_STAT) == 0) {
+                if (start == -1) start = i + 1;
+                end = i + 1;
+                empty_count++;
+            } else if (start != -1) {
+                printf("%c%02d-%c%02d ", prefix[floor], start, prefix[floor], end);
+                start = -1;
             }
         }
-        tempend += 1;
+        if (start != -1) {
+            printf("%c%02d-%c%02d", prefix[floor], start, prefix[floor], end);
+        }
+        printf("------------------------------\n");
     }
-    return 0;
+    printf("\nTotal Empty Rooms: %d\n", empty_count);
+    printf("=============================\n");
+    return empty_count;
 }
+
 
 int init() {
     for (int i = 0; i < MAX_ROOMS; i++) {
         strcpy(room_Info[i].room_status, DEFAULT_STAT);
         strcpy(room_Info[i].room_number, index_to_room(i));
     }
-    for (int j = 0; j < MAX_EPLYS; j++) { 
+
+    for (int j = 0; j < MAX_EPLYS; j++) {
         strcpy(eply_Info[j].department, "NONE");
+        strcpy(eply_Info[j].name, "");
+        strcpy(eply_Info[j].ID, "");
+        strcpy(eply_Info[j].password, "");
     }
+
     for (int k = 0; k < MAX_CUSTOMERS; k++) {
         cus_Info[k].number = 0;
+        strcpy(cus_Info[k].name, "");
+        strcpy(cus_Info[k].ID, "");
+        strcpy(cus_Info[k].password, "");
+        strcpy(cus_Info[k].room_number, "");
+        cus_Info[k].bill = 0;
     }
+
+    return 1;
 }
+
 
 void view_cus_info() {
     int has_customer = 0;
@@ -197,7 +199,7 @@ int find_ID(char *identity, char *ID) {
 
 int valid_room_check(char *room) {
     char prefix;
-    char valid[4] = {'G', '1', '2', '3'};           
+    char valid[4] = VALID_PREFIX;           
     int number;
     int flag = -1;
 
