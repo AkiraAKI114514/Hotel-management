@@ -1,5 +1,5 @@
-#include <stdio.h>
 #include "admin_employee.h"
+
 int main() {
     int choice;
     init();
