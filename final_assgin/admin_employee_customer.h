@@ -119,6 +119,8 @@ void employee() {
                         continue;
                     }
 
+                    strcpy(eply_Info[eply_num].password, temp_pwd);
+
                     DepartmentMsg();
                     printf("[INPUT] Please choose your department >> ");
 
