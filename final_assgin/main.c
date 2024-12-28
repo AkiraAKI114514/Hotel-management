@@ -1,12 +1,12 @@
-#include "admin_employee.h"
+#include "admin_employee_customer.h"
 
 int main() {
     int choice;
     init();
-    welcomeMsg();
+    WelcomeMsg();
 
     while (1) {
-        menuHelpMsg();
+        MenuHelpMsg();
         
         if (int_input_check(&choice)) {   
             switch (choice) {
@@ -17,13 +17,14 @@ int main() {
                     employee();
                     break;
                 case 3:
-                    //customer();
+                    customer();
                     break;
                 case 4:    
                     printf("[INFO] Exiting sytstem. Goodbye!\n");
                     return 0;
                 default:  
-                    printf("[ERROR] Invalid option,please try again!\n");
+                    printf("[ERROR] Invalid option. Please try again!\n");
+                    continue;
             }
         }
     }
